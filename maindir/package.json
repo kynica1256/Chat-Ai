@@ -1,0 +1,16 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Kirill Gribkov",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^9.2.0",
+    "express": "^4.17.1",
+    "http": "0.0.1-security"
+  }
+}

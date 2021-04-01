@@ -1,0 +1,113 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset='UTF-8'/>
+		<title>Chat ai</title>
+		<meta name="viewport" content="width=device-width">
+		<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+		<style type="text/css">
+			* {
+				font-family: RobotoR;
+			}
+			body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+			@font-face {
+				font-family: RobotoR;
+				src:url(../fonts/Roboto-Regular.ttf);
+			}
+			.form {
+                width: 300px;
+                padding: 32px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+            }
+            .form_title { 
+                text-align: center;
+                margin: 0 0 32px 0;
+                font-weight: normal;
+            }
+            .form_button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-family: sans-serif;
+                letter-spacing: 1px;
+                font-size: 16px;
+                color :#fff ;
+                background-color: #0071f0;
+                outline: none;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            label {
+            	font-size: 20px;
+            }
+		</style>
+	</head>
+	<body>
+		 <form class="form">
+            <h1 class="form_title">Регистрация</h1>
+            <div style="margin-left: 25%;">
+            	<label>Login</label><br>
+                <input type="text" id="login">
+            </div><br>
+            <div style="margin-left: 25%;">
+            	<label>Password</label><br>
+                <input type="password" id="password">
+            </div>
+            <br>
+            <div style="margin-left: 25%;">
+                <label>Password</label><br>
+                <input type="password" id="repassword">
+            </div>
+            <br>
+            <center><input class="form_button" id="reqbutton" type="button" value="Создать" onclick="regqeuests()"></center>
+        </form>
+        <script type="text/javascript">
+            function requestsinfo(password, login){
+                fetch('http://127.0.0.1:3000/infoall?password='+password+'&login='+login).
+                then(resp => {return resp.text()}).then(resBody => {
+                    console.log(resBody)
+                })
+
+            }
+            function regqeuests(){
+                const login = window.btoa(document.getElementById('login').value);
+                const password = window.btoa(document.getElementById('password').value);
+                const repassword = window.btoa(document.getElementById('repassword').value);
+                fetch('http://127.0.0.1:5000/registration?login='+login+'&password='+password+'&passwordre='+repassword).
+                then(resp => {return resp.text()}).then(resBody => {
+                    if (resBody === "True") {
+                        fetch('http://127.0.0.1:5000/passcheck?login='+login+'&password='+password).
+                        then(resp => {return resp.text()}).then(resBody => {
+                        if (resBody === "True"){
+                            requestsinfo(password1, login1)
+                            document.location.href='http://127.0.0.1:3000/'
+                        } else {}
+                    })
+                    } else {}
+                })
+            
+            }
+            //$(document).ready(function(){
+            //    $('#reqbutton').on('click', function(){
+            //        const login = document.getElementById('login').value;
+            //        const password = document.getElementById('password').value;
+            //        const login1 = window.btoa(login);
+            //        const password1 = window.btoa(password);
+            //        fetch('http://127.0.0.1:5000/passcheck?login='+login1+'&password='+password1).
+            //        then(resp => {return resp.text()}).then(resBody => {
+            //            if (resBody === "True"){
+            //                requestsinfo(password1, login1)
+            //                document.location.href='http://127.0.0.1:3000/'
+            //            } else {}
+            //        })
+            //    })
+            //})
+        </script>
+	</body>
+</html>

@@ -1,0 +1,239 @@
+* {
+	font-family: RobotoR;
+}
+h2 {
+	font-size: 50px;
+}
+::-webkit-scrollbar { /* chrome based */
+    width: 0px;  /* ширина scrollbar'a */
+    /**background: transparent;   опционально */
+}
+
+html {
+    /*-ms-overflow-style: none;   IE 10+ */
+    /*scrollbar-width: none;  Firefox */
+}
+.overflow-block {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	width: 100%;
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+.overflow-block1 {
+	/*display: flex;
+	justify-content: center;
+	align-items: center;*/
+	height: 400px;
+	width: 100%;
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+#first {
+	padding: 5px;
+	display: inline-flex;
+	border: 1px solid white;
+	width: 96%;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+}
+#icon {
+	height: 100px;
+	width: 100px;
+	background-image: url(../icongachi.PNG);
+	background-repeat:no-repeat;
+	background-size: 70%;
+	background-position:20%;
+}
+#block-1 {
+	display: flex;
+	flex-direction: column;
+	height: 90px;
+	width: 40%;
+}
+#block-2 {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	width: 50%;
+	height: 100px;
+}
+#second {
+	margin: 0 auto;
+	height: 700px;
+	width: 98%;
+	border: 1px solid white;
+	box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+#chat {
+	width: 99%;
+	height: 400px;
+	background-color: white;
+	box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+}
+.nav-wrapper {
+	/*position: absolute;*/
+	height: 120px;
+	display: flex;
+	/*padding: 0 100px;*/
+	width: 98%;
+	margin: auto;
+	/*max-width: 1200px;*/
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+}
+
+.topnav{
+	display: flex;
+	justify-content: flex-end;
+	/*width: 75%;
+	background-color: pink;*/
+	-ms-align-items: center;
+	align-items: center;
+}
+.logo {
+	font-size: 2.2rem;
+	font-weight: bold;
+	width: 150px;
+}
+.nav-link{
+	color: black;
+	/*display: inline-block;*/
+	/*margin: 15px;*/
+	padding: 10px 15px;
+	text-decoration: none;
+	font-size: 1.5rem;
+	letter-spacing: 0.5px;
+	transition: 0.3s ease-in;
+}
+#case {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#info {
+	width: 99%;
+	height: 90px;
+}
+#group {
+	background-color: white;
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+#info {
+	display: flex;
+}
+#defaultchat {
+	widows: 90%;
+	height: 50px;
+}
+
+
+
+
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin: 10px 0;
+}
+.container1 {
+    border: 2px solid white;
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+}
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+/* Clear floats */
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+}
+
+/* Style the right image */
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+/* Clear floats */
+.container1::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.container1 img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+}
+
+/* Style the right image */
+.container1 img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+}
+.form_button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color :#fff ;
+    height: 50px;
+    background-color: #0071f0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+}
+.form_input {
+	width: 50%;
+	height: 50px;
+	border: 1px solid white;
+	border-radius: 5px;
+	box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+}
+@font-face {
+	font-family: RobotoR;
+	src:url(../../fonts/Roboto-Regular.ttf);
+}

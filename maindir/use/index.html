@@ -1,0 +1,176 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset='UTF-8'/>
+		<title>Chat ai</title>
+		<meta name="viewport" content="width=device-width">
+		<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+		<link rel="stylesheet" type="text/css" href="style/style.css">
+	</head>
+	<body>
+		<!--<div id="first">
+			<div id="icon"></div>
+			<h2 style="margin-left: 2%;">CHAT AI</h2>
+			<div style="margin-left: 2%;" id="block-1">
+				<p>Личные перписки</p>
+				<div id="overflow-block"></div>
+			</div>
+			<div id="block-2" style="">
+				<a href="#">Выйти</a>
+			</div>
+		</div>-->
+		<div class="nav-wrapper">
+			<div id="case">
+			   <div id="icon"></div>
+			   <div class="logo">Chat AI</div>
+			</div>
+			<div id="block-1">
+				<p>Пользователи</p>
+				<div class="overflow-block" id="users"></div>
+			</div>
+			<div style="padding: 50px;"><a href="#" onclick="history.go(-1); return false;">Выйти</a></div>
+		</div>
+		<br><br><br>
+		<div id="second">
+			<div id="info">
+				<img src="default.png" width="90px" height="90px">
+				<h1 style="margin-left: 9px;" id="value"></h1>
+			</div>
+			<table style="width: 99%;">
+				<td id="group" style="width: 30%;height: 500px;" valign="top">
+					<hr>
+					<p>Все чаты</p>
+					<div class="container" onclick="glob = 'DefaultChat'">
+						<img src="defaultchat.jpg" alt="Avatar">
+						<p>DefaultChat</p>
+					</div>
+				</td>
+				<td>
+					<div id="chat" class="overflow-block1"></div>
+					<br><br>
+					<input class="form_input" id="sendmess" type="text" placeholder="Отпрвить сообщение">
+					<input class="form_button" id="reqbutton" type="button" value="Sending" onclick="chatsend(general, glob);">
+				</td>
+		    </table>
+		</div>
+		<script type="text/javascript">
+			window.glob = "DefaultChat";
+			const general = {};
+			const messagechat = "";
+			function activeusers(){
+                fetch('http://127.0.0.1:5000/activeusers').
+                then(resp => {return resp.text()}).then(resBody => {
+                	console.log(resBody);
+                	var jsobj = JSON.parse(resBody);
+                    const obj = Object.keys(jsobj);
+                    for (let i of obj) {
+                    	var l = document.getElementById("users").innerHTML += "<a href='#' id='"+i+"' style='color:black;'>"+i+"</a>&nbsp;&nbsp;";
+                    }
+                })
+
+            } 
+            function chatsend(general, glob){
+            	fetch('http://127.0.0.1:5000/chatplus?login='+general["login"]+'&password='+general["password"]+'&chatname='+glob+'&message='+window.btoa(document.getElementById('sendmess').value)).
+                then(resp => {return resp.text()}).then(resBody => {
+                	console.log(resBody);
+                })
+            }
+			function requestsinfo(general){
+				var request = new XMLHttpRequest();
+                request.open("GET", "http://127.0.0.1:3000/info", false);
+                request.send();
+                var status = request.status;
+                if(status==200){
+                	console.log(request.responseText)
+                    var jsob = JSON.parse(request.responseText);
+                    const passwordob = window.atob(jsob["password"]);
+                    const loginob = window.atob(jsob["login"]);
+                    general["login"] = jsob["login"]
+                    general["password"] = jsob["password"]
+                    var f = document.getElementById('value').innerText = loginob;
+                }
+                else if(status==404){
+
+                }
+                else{
+                }
+            }
+            function chatcheck(general) {
+            	fetch('http://127.0.0.1:5000/checkchattwo?login='+general.login+'&password='+general.password+'&chatname='+glob).
+                then(resp => {return resp.text()}).then(resBody => {
+                	var l = document.getElementById("chat").innerHTML += "<div class='container1'><img src='default.png' alt='Avatar'><p>"+resBody+"</p></div><br><br>"
+                })
+            }
+            async function subscribe(par1, par, messagechat){
+                let response = await fetch('http://127.0.0.1:5000/checkchattwo?login='+par1+'&password='+par+'&chatname='+glob);
+                if (response.status == 502) {
+                    // Status 502 is a connection timeout error,
+                    // may happen when the connection was pending for too long,
+                    // and the remote server or a proxy closed it
+                    // let's reconnect
+                  await subscribe(par1, par, messagechat);
+                } else if (response.status != 200) {
+                // An error - let's show it
+                // Reconnect in one second
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                await subscribe(par1, par, messagechat);
+                } else {
+                    // Get and show the message
+                let message = await response.text();
+                if (message === messagechat){
+                	await subscribe(par1, par, messagechat);
+                } 
+                else if (message === "Flase") {
+                	await subscribe(par1, par, messagechat);
+                }
+                else {
+                chat.insertAdjacentHTML('beforeend', "<div class='container1'><img src='default.png' alt='Avatar'><p>"+message+"</p></div><br><br>")
+                //chat.insertAdjacentHTML('beforeend', "<div class='container1'><img src='defaultchat.jpg' alt='Avatar'><p>"+message+"</p></div><br><br>");
+                messagechat = message
+                await subscribe(par1, par, messagechat);
+            }
+            }
+            }  
+            activeusers()
+            requestsinfo(general)
+            console.log(general)
+            subscribe(general["login"], general["password"], messagechat)
+            //chatcheck(general)
+		</script>
+		<script type="text/javascript">
+			//function sleep(ms) {
+            //	return new Promise(resolve => setTimeout(resolve, ms));
+            //}
+            //function showmessage(message) {
+            //	var jsobj = JSON.parse(message);
+            //    const obj = Object.keys(jsobj);
+            //    for (let i of obj) {
+            //        var l = document.getElementById("chat").innerHTML += "<div class='container1'><img src='defaultchat.jpg' alt='Avatar'><p>"+window.atob(i)+"</p><br><p>"+window.atob(jsobj[i])+"////</p></div>";
+            //    }
+            //}
+            //async function subscribe(){
+            //    console.log(general)
+            //    let response = await fetch("http://127.0.0.1:5000/checkchattwo?login="+general['login']+"&password="+general['password']+"&chatname="+glob);
+            //    
+            //    if (response.status == 502) {
+            //        // Status 502 is a connection timeout error,
+            //        // may happen when the connection was pending for too long,
+            //        // and the remote server or a proxy closed it
+            //        // let's reconnect
+            //      await subscribe();
+            //    } else if (response.status != 200) {
+            //    // An error - let's show it
+            //    // Reconnect in one second
+            //    await new Promise(resolve => setTimeout(resolve, 1000));
+            //    await subscribe();
+            //    } else {
+            //        // Get and show the message
+            //    let message = await response.text();
+            //    console.log(message)
+            //    //chat.insertAdjacentHTML('beforeend', "<div class='container1'><img src='defaultchat.jpg' alt='Avatar'><p>"+message+"</p></div><br><br>");
+            //    await subscribe();
+            //}
+            //}  
+		</script>
+	</body>
+</html>
