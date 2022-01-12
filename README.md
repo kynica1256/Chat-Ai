@@ -1,2 +1,2 @@
-# Chat-Ai
+# Chat
 Simple-chat
